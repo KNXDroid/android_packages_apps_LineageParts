@@ -1,12 +1,11 @@
 /*
  * SPDX-FileCopyrightText: 2016 The CyanogenMod project
- * SPDX-FileCopyrightText: 2017-2024 The LineageOS project
+ * SPDX-FileCopyrightText: 2017-2025 The LineageOS project
  * SPDX-License-Identifier: Apache-2.0
  */
 
 package org.lineageos.lineageparts.input;
 
-import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_2BUTTON;
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_3BUTTON_OVERLAY;
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OVERLAY;
 
@@ -660,11 +659,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
         return false;
     }
 
-    private static boolean is2ButtonNavigationEnabled(Context context) {
-        return NAV_BAR_MODE_2BUTTON == context.getResources().getInteger(
-                com.android.internal.R.integer.config_navBarInteractionMode);
-    }
-
     private static void setButtonNavigationMode(String overlayPackage) {
         IOverlayManager overlayManager = IOverlayManager.Stub.asInterface(
                 ServiceManager.getService(Context.OVERLAY_SERVICE));
@@ -729,13 +723,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     mNavigationPreferencesCat.removePreference(mNavigationHomeLongPressAction);
                     mNavigationPreferencesCat.removePreference(mNavigationHomeDoubleTapAction);
                     mNavigationPreferencesCat.removePreference(mNavigationAppSwitchLongPressAction);
-                } else if (DeviceUtils.isSwipeUpEnabled(getContext())) {
-                    mNavigationPreferencesCat.addPreference(mNavigationBackLongPressAction);
-                    mNavigationPreferencesCat.addPreference(mNavigationHomeLongPressAction);
-                    mNavigationPreferencesCat.addPreference(mNavigationHomeDoubleTapAction);
-
-                    mNavigationPreferencesCat.removePreference(mNavigationAppSwitchLongPressAction);
-                    mNavigationPreferencesCat.removePreference(mEdgeLongSwipeAction);
                 } else {
                     mNavigationPreferencesCat.addPreference(mNavigationBackLongPressAction);
                     mNavigationPreferencesCat.addPreference(mNavigationHomeLongPressAction);
@@ -983,9 +970,6 @@ public class ButtonSettings extends SettingsPreferenceFragment
                     result.add(KEY_NAVIGATION_HOME_LONG_PRESS);
                     result.add(KEY_NAVIGATION_HOME_DOUBLE_TAP);
                     result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
-                } else if (DeviceUtils.isSwipeUpEnabled(context)) {
-                    result.add(KEY_NAVIGATION_APP_SWITCH_LONG_PRESS);
-                    result.add(KEY_EDGE_LONG_SWIPE);
                 } else {
                     result.add(KEY_EDGE_LONG_SWIPE);
                 }
